@@ -25,6 +25,7 @@ gem 'geocoder'
 gem 'bootstrap', '~> 5.1.3'
 gem "figaro"
 gem 'gmaps4rails'
+gem 'jquery-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

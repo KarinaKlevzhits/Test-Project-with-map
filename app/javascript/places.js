@@ -1,5 +1,18 @@
-<% provide :head_tags do %>
-  <script>
+function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+        center: myCoords,
+        zoom: 14
+    };
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        map: map
+    });
+
+}
 
 function initMap2() {
     var lat = document.getElementById('place_latitude').value;
@@ -54,46 +67,3 @@ function initMap2() {
         map.panTo(marker.getPosition());   
     });
 }
-
-</script>
-    <meta name='turbolinks-visit-control' content='reload'>
-    <script>
-        document.addEventListener("DOMContentLoaded", initMap2);
-    </script>
-<% end %>
-<%= form_with(model: place, local: true) do |form| %>
-  <% if place.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
-
-      <ul>
-      <% place.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude %>
-  </div>
-
-  <p>
-    <div id="map2"></div>
-  </p>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>

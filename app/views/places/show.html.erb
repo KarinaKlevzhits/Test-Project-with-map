@@ -1,3 +1,30 @@
+<script>
+function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+        center: myCoords,
+        zoom: 14
+    };
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myCoords,
+        map: map
+    });
+
+}
+</script>
+<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      
+      initMap(<%=@place.latitude%>, <%=@place.longitude%>)
+    });
+  </script>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -14,8 +41,10 @@
   <strong>Longitude:</strong>
   <%= @place.longitude %>
 </p>
+
 <p>
-<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&markers=size:small%7Ccolor:red%7C#{@place.latitude},#{@place.longitude}&key=AIzaSyCSHh5otSg7kDYYClt_YgNG8k1F8Z4VFWU", alt: "Map" %>
+    <div id="map"></div>
 </p>
+
 <%= link_to 'Edit', edit_place_path(@place) %> |
 <%= link_to 'Back', places_path %>
